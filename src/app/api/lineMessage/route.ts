@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const CHANNEL_ACCESS_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN;
 
-export async function POST(data: { name: string; email: string }) {
+export async function POST(req: NextRequest) {
   try {
-    const { name, email } = data;
+    const { name, email } = await req.json();
 
     const message = {
       to: "U6a934c65da47bd1a06d768e5e35da61f",
