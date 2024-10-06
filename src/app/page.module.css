@@ -1,0 +1,15 @@
+.container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.navLink {
+  font-size: 20px;
+  color: blue;
+  text-decoration: none;
+  margin: 10px;
+}
+
+.navLink:hover {
+  color: darkblue;
+}
