@@ -1,11 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 const CHANNEL_ACCESS_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN;
 
-export async function POST(req: NextRequest) {
-  console.log(CHANNEL_ACCESS_TOKEN);
+export async function POST(data: { name: string; email: string }) {
   try {
-    const { name, email } = await req.json();
+    const { name, email } = data;
 
     const message = {
       to: "U6a934c65da47bd1a06d768e5e35da61f",
@@ -41,15 +40,15 @@ export async function POST(req: NextRequest) {
     );
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error in lineMessage:", error.message); // エラーメッセージを記録
+      console.error("Error in lineMessage:", error.message);
       return NextResponse.json(
-        { message: "サーバーエラー", error: error.message }, // 詳細を含める
+        { message: "サーバーエラー", error: error.message },
         { status: 500 }
       );
     } else {
       console.error("Unknown error in lineMessage:", error);
       return NextResponse.json(
-        { message: "サーバーエラー", error: "Unknown error" }, // 不明なエラーを処理
+        { message: "サーバーエラー", error: "Unknown error" },
         { status: 500 }
       );
     }
