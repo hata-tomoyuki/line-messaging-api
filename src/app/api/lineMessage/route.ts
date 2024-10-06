@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     const { name, email } = await req.json();
 
     const message = {
-      to: "U6a934c65da47bd1a06d768e5e35da61f",
+      to: "U2e06e9c1777f795eacdf55813d0fa6fe",
       messages: [
         {
           type: "text",
