@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 const CHANNEL_ACCESS_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN;
 
 export async function POST(req: NextRequest) {
-  console.log(CHANNEL_ACCESS_TOKEN);
+  console.log("debug", CHANNEL_ACCESS_TOKEN);
   try {
     const { name, email } = await req.json();
 
