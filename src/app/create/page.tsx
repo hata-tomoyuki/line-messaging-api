@@ -15,6 +15,7 @@ export default function CreatePage() {
       name: formData.get("name"),
       email: formData.get("email"),
     };
+    console.log("フォームデータ確認", data);
 
     // フォームのデータを送信する
     const response = await fetch("/api/lineWebhook", {
@@ -39,6 +40,7 @@ export default function CreatePage() {
         名前:
         <input
           type="text"
+          name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -47,6 +49,7 @@ export default function CreatePage() {
         メールアドレス:
         <input
           type="email"
+          name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
