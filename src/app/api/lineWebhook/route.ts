@@ -1,39 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const CHANNEL_ACCESS_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN;
+import { POST as sendLineMessage } from "../lineMessage/route";
 
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
 
-    // LINE APIにメッセージを送信
-    const response = await fetch("https://yourdomain.com/api/lineMessage", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${CHANNEL_ACCESS_TOKEN}`,
-      },
-      body: JSON.stringify(data),
-    });
+    // LINE Messaging API への送信などの処理を書く
+    console.log("Received data:", data);
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Error in lineMessage:", errorData);
-      throw new Error(`LINE API error: ${errorData.message || errorData}`);
-    }
+    // LINE API へのメッセージ送信
+    const lineResponse = await sendLineMessage(req); // 受け取ったデータをLINE APIへ送信
 
-    return NextResponse.json({ message: "メッセージを送信しました" }, { status: 200 });
+    // LINE APIからのレスポンスを確認してレスポンスを返す
+    return lineResponse;
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error in lineWebhook:", error.message);
+      console.error("Error in lineWebhook:", error.message); // エラーメッセージを記録
       return NextResponse.json(
-        { error: "Something went wrong", details: error.message },
+        { error: "Something went wrong", details: error.message }, // 詳細を含める
         { status: 500 }
       );
     } else {
       console.error("Unknown error in lineWebhook:", error);
       return NextResponse.json(
-        { error: "Something went wrong", details: "Unknown error" },
+        { error: "Something went wrong", details: "Unknown error" }, // 不明なエラーを処理
         { status: 500 }
       );
     }
